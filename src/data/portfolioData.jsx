@@ -37,8 +37,8 @@ export const projects = [
     description:
       "Generates forms using AI from natural language prompts. Creates context-aware questions automatically — no manual form building required.",
     tags: ["React", "Next.js", "Tailwind CSS", "AI"],
-    github: "https://github.com/tarunkulkarni4/AI-POWERED-GOOGLE-FORM-BUILDER",
-    live: "https://ai-powered-google-form-builder-demo.vercel.app/",
+    github: "https://github.com/tarunkulkarni4/FullStack-AI-Google-Form_Builder",
+    live: "https://github.com/tarunkulkarni4/FullStack-AI-Google-Form_Builder",
   },
   {
     title: "AI Job Application Automator",
