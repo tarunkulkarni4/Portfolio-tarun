@@ -4,6 +4,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import { useTheme } from '../context/ThemeContext';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { personalInfo } from '../data/portfolioData';
+import tarunPhoto from '../assets/tarunphoto.jpeg';
 
 const badges = ['React', 'JavaScript', 'Node.js', 'TypeScript', 'Tailwind CSS', 'MongoDB'];
 
@@ -50,19 +51,14 @@ export default function About() {
         animate={isVisible ? 'show' : 'hidden'}
         className="grid md:grid-cols-[280px_1fr] gap-12 items-center"
       >
-        {/* Avatar - Hidden on Mobile */}
-        <motion.div variants={fadeUp} className="hidden md:flex justify-start">
+        {/* Avatar */}
+        <motion.div variants={fadeUp} className="flex justify-center md:justify-start">
           <div className="gradient-border w-56 h-56 md:w-64 md:h-64 flex-shrink-0">
-            <div
-              className="w-full h-full rounded-full flex items-center justify-center font-grotesk font-bold"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                color: 'var(--muted)',
-                fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-              }}
-            >
-              TK
-            </div>
+            <img
+              src={tarunPhoto}
+              alt="Tarun Kulkarni"
+              className="w-full h-full rounded-full object-cover"
+            />
           </div>
         </motion.div>
 
