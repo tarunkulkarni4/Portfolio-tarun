@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { personalInfo } from '../data/portfolioData';
 import Terminal from './Terminal';
 import BlurText from './BlurText';
+import ParticlesBackground from './ParticlesBackground';
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -51,6 +52,7 @@ export default function Hero() {
     >
       {/* Dot Grid Background */}
       <div className="absolute inset-0 dot-grid-bg" />
+      <ParticlesBackground />
 
       {/* Spotlight Effect (Desktop) */}
       <div
