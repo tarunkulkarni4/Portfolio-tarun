@@ -1,3 +1,16 @@
+/* ── Accent colour tokens (light & dark) ── */
+:root {
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+}
+
+.dark {
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -181,4 +194,57 @@
     right: 0;
     border-right-color: var(--border);
   }
+}
+
+/* Outfit font specifically for Leetcode and GitHub stats */
+.outfit-font {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* Custom interactive link badges for the left column skills section */
+.left-stats-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.left-stats-link:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.left-stats-link.leetcode {
+  color: var(--text);
+}
+.left-stats-link.leetcode:hover {
+  border-color: rgba(255, 161, 22, 0.4);
+  background: rgba(255, 161, 22, 0.05);
+  color: #FFA116;
+}
+
+.left-stats-link.github {
+  color: var(--text);
+}
+.left-stats-link.github:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.05);
+  color: #a855f7;
+}
+
+.left-stats-link .arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.left-stats-link:hover .arrow-icon {
+  transform: translateX(2px);
 }

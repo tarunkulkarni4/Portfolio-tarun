@@ -9,6 +9,7 @@ import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import GithubWidget from './components/GithubWidget';
+import './App.css';
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
