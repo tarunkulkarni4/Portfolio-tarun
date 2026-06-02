@@ -45,13 +45,27 @@ export default function Hero() {
       })
       .catch((err) => console.error('Error fetching LeetCode stats:', err));
 
-    fetch('https://github-contributions-api.jogruber.de/v4/tarunkulkarni4')
+    fetch('https://api.github.com/users/tarunkulkarni4/repos?per_page=100')
       .then((res) => res.json())
-      .then((data) => {
-        if (data && data.total) {
-          const sum = Object.values(data.total).reduce((acc, val) => acc + val, 0);
-          setGithubCommits(sum);
-        }
+      .then(async (repos) => {
+        if (!Array.isArray(repos)) return;
+        let total = 0;
+        await Promise.all(
+          repos.map((repo) =>
+            fetch(`https://api.github.com/repos/tarunkulkarni4/${repo.name}/commits?per_page=1&author=tarunkulkarni4`)
+              .then((r) => {
+                const link = r.headers.get('Link');
+                if (link) {
+                  const match = link.match(/page=(\d+)>; rel="last"/);
+                  if (match) total += parseInt(match[1], 10);
+                } else {
+                  total += 1;
+                }
+              })
+              .catch(() => {})
+          )
+        );
+        if (total > 0) setGithubCommits(total);
       })
       .catch((err) => console.error('Error fetching GitHub stats:', err));
   }, []);
@@ -293,7 +307,7 @@ export default function Hero() {
             animate="show"
           >
             {/* 1. Avatar (Top) */}
-            <motion.div variants={item} className="mb-6">
+            <motion.div variants={item} className="mb-4">
               <div className="gradient-border w-36 h-36 flex-shrink-0 relative">
                 <img
                   src={tarunPhoto}
@@ -301,6 +315,34 @@ export default function Hero() {
                   className="w-full h-full rounded-full object-cover"
                 />
               </div>
+            </motion.div>
+
+            {/* Stats (right after avatar - always visible on mobile) */}
+            <motion.div variants={item} className="flex flex-wrap justify-center gap-2 mb-4 px-2">
+              <a
+                href="https://leetcode.com/u/Tarun_kulakarni/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="left-stats-link leetcode"
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-9.177 9.178a1.374 1.374 0 0 0-.001 1.94l1.376 1.377a1.375 1.375 0 0 0 1.943-.005l7.9-7.9 1.377 1.376-7.854 7.854a1.375 1.375 0 0 0-.001 1.94l1.377 1.376a1.375 1.375 0 0 0 1.94-.002l7.856-7.855 1.378 1.377-7.858 7.853a1.375 1.375 0 0 0-.001 1.94l1.378 1.376a1.375 1.375 0 0 0 1.94-.002l10.53-10.53a1.374 1.374 0 0 0-.962-2.348H13.483z" />
+                </svg>
+                <span>{leetcodeSolved !== null ? leetcodeSolved : '281'}+ Solved on LeetCode</span>
+                <span className="arrow-icon">→</span>
+              </a>
+              <a
+                href="https://github.com/tarunkulkarni4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="left-stats-link github"
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span>{githubCommits !== null ? githubCommits : '107'}+ Commits on GitHub</span>
+                <span className="arrow-icon">→</span>
+              </a>
             </motion.div>
 
             {/* 2. Available Tag */}
@@ -407,53 +449,14 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Zigzag connection to stats (Mobile) */}
+            {/* Zigzag connection to stats (Mobile) - kept at bottom for context */}
             <motion.div 
               variants={item} 
-              className="flex items-center gap-2 mb-4 w-full justify-center outfit-font px-2"
+              className="flex items-center gap-2 mb-8 w-full justify-center outfit-font px-2"
             >
               <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-h)]">
-                Apart from this, solved DSA problems
+                Apart from this, solved DSA problems ↑
               </span>
-              <svg width="50" height="10" viewBox="0 0 50 10" fill="none" className="opacity-80">
-                <path 
-                  d="M0 5 L7 2 L14 8 L21 2 L28 8 L35 2 L42 5 L50 5" 
-                  stroke="var(--accent)" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                />
-                <polygon points="50,5 45,3 45,7" fill="var(--accent)" />
-              </svg>
-            </motion.div>
-
-            {/* Stats links below (Mobile) */}
-            <motion.div variants={item} className="flex flex-wrap justify-center gap-2 mb-8 px-2">
-              <a 
-                href="https://leetcode.com/u/Tarun_kulakarni/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="left-stats-link leetcode"
-              >
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-9.177 9.178a1.374 1.374 0 0 0-.001 1.94l1.376 1.377a1.375 1.375 0 0 0 1.943-.005l7.9-7.9 1.377 1.376-7.854 7.854a1.375 1.375 0 0 0-.001 1.94l1.377 1.376a1.375 1.375 0 0 0 1.94-.002l7.856-7.855 1.378 1.377-7.858 7.853a1.375 1.375 0 0 0-.001 1.94l1.378 1.376a1.375 1.375 0 0 0 1.94-.002l10.53-10.53a1.374 1.374 0 0 0-.962-2.348H13.483z" />
-                </svg>
-                <span>{leetcodeSolved !== null ? leetcodeSolved : '281'}+ Solved on LeetCode</span>
-                <span className="arrow-icon">→</span>
-              </a>
-
-              <a 
-                href="https://github.com/tarunkulkarni4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="left-stats-link github"
-              >
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-                <span>{githubCommits !== null ? githubCommits : '107'}+ Commits on GitHub</span>
-                <span className="arrow-icon">→</span>
-              </a>
             </motion.div>
           </motion.div>
         </div>
