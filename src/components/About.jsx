@@ -13,19 +13,31 @@ export default function About() {
   const reposPerPage = 4;
 
   useEffect(() => {
-    // Fetch user profile
-    fetch('https://api.github.com/users/tarunkulkarni4')
-      .then((res) => res.json())
-      .then((data) => setGithubData(data))
-      .catch((err) => console.error(err));
+    const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
-    // Fetch up to 100 repositories, sorted by latest updates
-    fetch('https://api.github.com/users/tarunkulkarni4/repos?sort=updated&per_page=100')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setRepoData(data);
-      })
-      .catch((err) => console.error(err));
+    const fetchWithCache = async (key, url, setter) => {
+      try {
+        const cached = localStorage.getItem(key);
+        if (cached) {
+          const { data, ts } = JSON.parse(cached);
+          if (Date.now() - ts < CACHE_TTL) {
+            setter(data);
+            return;
+          }
+        }
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        localStorage.setItem(key, JSON.stringify({ data, ts: Date.now() }));
+        setter(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchWithCache('gh_profile', 'https://api.github.com/users/tarunkulkarni4', setGithubData);
+    fetchWithCache('gh_repos', 'https://api.github.com/users/tarunkulkarni4/repos?sort=updated&per_page=100',
+      (data) => { if (Array.isArray(data)) setRepoData(data); });
   }, []);
 
   const container = {

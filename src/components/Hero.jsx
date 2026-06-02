@@ -34,7 +34,7 @@ export default function Hero() {
     return () => window.removeEventListener('mousemove', handleMouse);
   }, []);
 
-  // Fetch LeetCode and GitHub stats
+  // Fetch LeetCode stats only (GitHub API calls reserved for About section)
   useEffect(() => {
     fetch('https://leetcode-api-faisalshohag.vercel.app/Tarun_kulakarni/')
       .then((res) => res.json())
@@ -44,30 +44,6 @@ export default function Hero() {
         }
       })
       .catch((err) => console.error('Error fetching LeetCode stats:', err));
-
-    fetch('https://api.github.com/users/tarunkulkarni4/repos?per_page=100')
-      .then((res) => res.json())
-      .then(async (repos) => {
-        if (!Array.isArray(repos)) return;
-        let total = 0;
-        await Promise.all(
-          repos.map((repo) =>
-            fetch(`https://api.github.com/repos/tarunkulkarni4/${repo.name}/commits?per_page=1&author=tarunkulkarni4`)
-              .then((r) => {
-                const link = r.headers.get('Link');
-                if (link) {
-                  const match = link.match(/page=(\d+)>; rel="last"/);
-                  if (match) total += parseInt(match[1], 10);
-                } else {
-                  total += 1;
-                }
-              })
-              .catch(() => {})
-          )
-        );
-        if (total > 0) setGithubCommits(total);
-      })
-      .catch((err) => console.error('Error fetching GitHub stats:', err));
   }, []);
 
   const container = {
@@ -317,8 +293,8 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Stats (right after avatar - always visible on mobile) */}
-            <motion.div variants={item} className="flex flex-wrap justify-center gap-2 mb-4 px-2">
+            {/* Stats right below avatar (Mobile) */}
+            <motion.div variants={item} className="flex flex-col items-center gap-2 mb-4 px-2 w-full">
               <a
                 href="https://leetcode.com/u/Tarun_kulakarni/"
                 target="_blank"
@@ -447,16 +423,6 @@ export default function Hero() {
                 </svg>
                 View Resume
               </a>
-            </motion.div>
-
-            {/* Zigzag connection to stats (Mobile) - kept at bottom for context */}
-            <motion.div 
-              variants={item} 
-              className="flex items-center gap-2 mb-8 w-full justify-center outfit-font px-2"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-h)]">
-                Apart from this, solved DSA problems ↑
-              </span>
             </motion.div>
           </motion.div>
         </div>

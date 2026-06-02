@@ -7,28 +7,40 @@ export default function GithubWidget() {
 
   useEffect(() => {
     const fetchLatestCommit = async () => {
+      const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+      const CACHE_KEY = 'gh_events';
       try {
+        // Check cache first
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { data: events, ts } = JSON.parse(cached);
+          if (Date.now() - ts < CACHE_TTL) {
+            processEvents(events);
+            return;
+          }
+        }
         // Fetch public events for the GitHub user
         const response = await fetch('https://api.github.com/users/tarunkulkarni4/events/public');
         if (!response.ok) return;
-        
         const events = await response.json();
-        // Find the most recent PushEvent
-        const pushEvent = events?.find(event => event.type === 'PushEvent');
-        
-        if (pushEvent?.payload?.commits && pushEvent.payload.commits.length > 0) {
-          const commit = pushEvent.payload.commits[0];
-          const repoName = pushEvent.repo.name.split('/')[1] || pushEvent.repo.name;
-          setLatestCommit({
-            message: commit.message,
-            repo: repoName,
-            url: `https://github.com/${pushEvent.repo.name}`
-          });
-          // Show widget after 2 seconds to let initial page load finish
-          setTimeout(() => setIsVisible(true), 2000);
-        }
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data: events, ts: Date.now() }));
+        processEvents(events);
       } catch (error) {
         console.error("Error fetching GitHub activity:", error);
+      }
+    };
+
+    const processEvents = (events) => {
+      const pushEvent = events?.find(event => event.type === 'PushEvent');
+      if (pushEvent?.payload?.commits && pushEvent.payload.commits.length > 0) {
+        const commit = pushEvent.payload.commits[0];
+        const repoName = pushEvent.repo.name.split('/')[1] || pushEvent.repo.name;
+        setLatestCommit({
+          message: commit.message,
+          repo: repoName,
+          url: `https://github.com/${pushEvent.repo.name}`
+        });
+        setTimeout(() => setIsVisible(true), 2000);
       }
     };
 
