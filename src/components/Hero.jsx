@@ -285,7 +285,7 @@ export default function Hero() {
         </div>
 
         {/* MOBILE LAYOUT (less than md) */}
-        <div className="block md:hidden pt-8 pb-12">
+        <div className="block md:hidden pt-2 pb-12">
           <motion.div
             className="flex flex-col items-center text-center"
             variants={container}
