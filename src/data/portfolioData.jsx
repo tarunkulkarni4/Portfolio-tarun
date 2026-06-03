@@ -1,5 +1,5 @@
 export const personalInfo = {
-  name: "Tarun Kulkarni",
+  name: "Tarun Kulakarni",
   tagline: "Building scalable, user-centric web applications from Bengaluru.",
   bio: "I'm a AspiringFull-Stack Developer based in Bengaluru, India, currently pursuing my MCA at Cambridge Institute of Technology. I specialize in React, Node.js, and modern web technologies — turning complex problems into clean, performant digital solutions. Passionate about AI-integrated applications and open-source contribution.",
   roles: ["Full-Stack Developer", "React Developer", "Open Source Builder"],

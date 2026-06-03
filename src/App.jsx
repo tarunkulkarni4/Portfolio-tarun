@@ -53,7 +53,7 @@ function Footer() {
       <p>
         Crafted with <span style={{ color: 'var(--text)' }}>♥</span> by{' '}
         <span className="font-semibold" style={{ color: 'var(--text)' }}>
-          Tarun Kulkarni
+          Tarun Kulakarni
         </span>{' '}
         — {new Date().getFullYear()}
       </p>
@@ -69,7 +69,7 @@ export default function App() {
         // More robust scroll calculation that accounts for layout and sticky navbar
         const elementPosition = projectsSection.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - 60;
-        
+
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'

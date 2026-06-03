@@ -9,7 +9,7 @@ const tagIcons = {
   "Next.js": "devicon-nextjs-plain", // Keeping plain so dark-mode auto-inverts correctly
   "Tailwind CSS": "devicon-tailwindcss-original colored",
   "Node.js": "devicon-nodejs-plain colored",
-  "Express": "devicon-express-original", 
+  "Express": "devicon-express-original",
   "MongoDB": "devicon-mongodb-plain colored",
   "Socket.io": "devicon-socketio-original",
   "PostgreSQL": "devicon-postgresql-plain colored",
@@ -67,7 +67,7 @@ export default function Projects() {
         </motion.p>
 
         {/* Filter Bar */}
-        <motion.div 
+        <motion.div
           className="flex flex-wrap gap-3 mb-12"
           variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
         >
@@ -201,10 +201,10 @@ function ProjectCard({ project, index }) {
                   backgroundColor: 'var(--bg)',
                   border: '1px solid var(--border)',
                 }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  color: 'var(--text)', 
-                  borderColor: 'var(--text)' 
+                whileHover={{
+                  scale: 1.05,
+                  color: 'var(--text)',
+                  borderColor: 'var(--text)'
                 }}
               >
                 {tagIcons[tag] && (
