@@ -39,6 +39,9 @@ export const projects = [
     tags: ["React", "Next.js", "Tailwind CSS", "AI"],
     github: "https://github.com/tarunkulkarni4/FullStack-AI-Google-Form_Builder",
     live: "https://github.com/tarunkulkarni4/FullStack-AI-Google-Form_Builder",
+    problem: "Creating custom forms and surveys is a time-consuming chore. Users often struggle to write clear questions, structure them logically, determine correct answer formats, and configure valid validation rules manually.",
+    proposed: "An intelligent React/Next.js dashboard that integrates with LLM APIs to generate dynamic, validated form questionnaires instantly from simple text descriptions. Users can edit, preview, and deploy forms in one click.",
+    screenshots: ["/form-builder.png"]
   },
   {
     title: "AI Job Application Automator",
@@ -47,6 +50,9 @@ export const projects = [
     tags: ["React", "Node.js", "Express", "Tailwind CSS", "AI"],
     github: "https://github.com/tarunkulkarni4/auto-email",
     live: "https://auto-email-ebon.vercel.app/",
+    problem: "Job hunters waste hours writing tailored cover letters and emails for hundreds of job openings, leading to fatigue and slow application cycles.",
+    proposed: "A full-stack workflow automation tool that uses OCR to scan job posting details, utilizes Grok AI (via APIs) to draft custom-tailored cover emails, and hooks into Google OAuth/Gmail API to automatically save them as drafts.",
+    screenshots: ["https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Negotiation E-Commerce Platform",
@@ -55,6 +61,9 @@ export const projects = [
     tags: ["React", "Node.js", "MongoDB", "Socket.io", "Express"],
     github: "https://github.com/tarunkulkarni4/Full-Stack-Ecommerce-Bargain-Negotiation",
     live: "https://github.com/tarunkulkarni4/Full-Stack-Ecommerce-Bargain-Negotiation",
+    problem: "Online shopping lacks the interactive bargain and negotiation dynamics found in physical stores, making purchasing feel rigid and strictly algorithmic.",
+    proposed: "A collaborative e-commerce platform using Socket.io for real-time web socket communication, allowing users to enter live negotiations with a smart pricing engine and pay via Stripe once a deal is struck.",
+    screenshots: ["https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Panchayat Management System",
@@ -63,6 +72,9 @@ export const projects = [
     tags: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
     github: "https://github.com/tarunkulkarni4/Panchayat-",
     live: "https://github.com/tarunkulkarni4/Panchayat-",
+    problem: "Village administrative bodies (Panchayats) rely heavily on offline documentation and spreadsheets. This leads to information asymmetry, lack of transparency in local government funds, and unresolved citizen complaints.",
+    proposed: "A digital portal that allows residents to log in, discover available welfare schemes, track village budget allocations, file complaints, and receive real-time resolution updates from district officials.",
+    screenshots: ["https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Scheduler — Meeting Platform",
@@ -71,6 +83,9 @@ export const projects = [
     tags: ["Next.js", "Prisma", "Clerk", "Neon DB", "Tailwind CSS"],
     github: "https://github.com/tarunkulkarni4/Scheduler",
     live: "https://scheduler-pret.vercel.app/",
+    problem: "Endless back-and-forth emails to negotiate meeting times across different time zones often result in scheduling conflicts, missed calls, and double-bookings.",
+    proposed: "A beautiful Calendly clone built using Next.js 14 and Prisma. It integrates with Google Calendar API and Clerk Authentication to provide users with persistent scheduling links and instant timezone synchronization.",
+    screenshots: ["https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Prescripto — Doctor Appointment",
@@ -79,6 +94,9 @@ export const projects = [
     tags: ["React", "Node.js", "MongoDB", "Express", "JWT"],
     github: "https://github.com/tarunkulkarni4/Prescripto-front-end",
     live: "https://prescripto-front-end-ulur.vercel.app/",
+    problem: "Patients struggle to view doctors' available slots in real-time, resulting in long phone queues and tedious manual scheduling for clinical staff.",
+    proposed: "An end-to-end healthcare booking portal with separate patient, doctor, and admin modules. Patient profiles can search doctors by specialty, check availability calendars, book appointments instantly, and pay securely.",
+    screenshots: ["https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Job Tab Auto Reloader",
@@ -86,7 +104,9 @@ export const projects = [
       "Auto-refreshes job listing tabs at set intervals, keeping sessions active and alerting when new listings appear.",
     tags: ["JavaScript", "HTML", "CSS"],
     github: "https://github.com/tarunkulkarni4/LinkedIn-refresh-job-extension",
-
+    problem: "Job-seeking platforms expire browser sessions quickly, or fail to load real-time listing updates without manual page refreshes, causing applicants to miss early openings.",
+    proposed: "A lightweight Chrome extension built in vanilla JavaScript that injects clean intervals to refresh active boards, plays custom audio alerts upon new posts, and maintains session states in background workers.",
+    screenshots: ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "Apply-Mate Chrome Extension",
@@ -94,6 +114,9 @@ export const projects = [
       "Chrome extension to store job application data and auto-fill forms — making job hunting faster and more organized.",
     tags: ["JavaScript", "Chrome APIs", "HTML", "CSS"],
     github: "https://github.com/tarunkulkarni4/applymate-chrome-extension",
+    problem: "Job application forms across different portals ask for the exact same contact, educational, and social link details. Repeated copy-pasting is slow and prone to errors.",
+    proposed: "A browser-integrated utility using Chrome Storage APIs and DOM content script injections. It securely caches your professional bio and instantly auto-fills matching inputs on standard job applicant pages.",
+    screenshots: ["https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?q=80&w=800&auto=format&fit=crop"]
   },
   {
     title: "TalentFlow AI — HR Screening Dashboard",
@@ -102,6 +125,9 @@ export const projects = [
     tags: ["Next.js", "Node.js", "Bolna AI", "Tailwind CSS", "MongoDB"],
     github: "https://github.com/tarunkulkarni4/hr-screening-web-app",
     live: "https://github.com/tarunkulkarni4/hr-screening-web-app",
+    problem: "Recruiters waste hundreds of hours conducting repetitive 10-minute introductory phone screening calls for hundreds of candidate applications.",
+    proposed: "A cutting-edge SaaS platform that automates initial HR screens. It orchestrates real-time conversational phone calls via Bolna AI, parses and grades resume content using Llama-3 (Groq API), and aggregates ratings in a clean Next.js CRM.",
+    screenshots: ["https://images.unsplash.com/photo-1542744094-3a31f103e35f?q=80&w=800&auto=format&fit=crop"]
   },
 ];
 
