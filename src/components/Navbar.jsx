@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { navLinks } from '../data/portfolioData';
@@ -8,26 +8,14 @@ export default function Navbar() {
   const { isDark, toggle } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Scrolled state for background
+
       setScrolled(currentScrollY > 20);
 
-      // Hide/Show logic
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setVisible(false);
-      } else {
-        setVisible(true);
-      }
-      setLastScrollY(currentScrollY);
-
-      // Determine active section
-      const sections = navLinks.map(link => link.href.substring(1));
+      const sections = navLinks.map((link) => link.href.substring(1));
       let current = '';
 
       for (const section of sections) {
@@ -45,8 +33,9 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const scrollTo = (href) => {
     const el = document.querySelector(href);
@@ -56,26 +45,34 @@ export default function Navbar() {
     }
   };
 
+  const logoSize = scrolled ? 'clamp(0.95rem, 3vw, 1.35rem)' : 'clamp(1rem, 3vw, 1.5rem)';
+  const buttonSize = scrolled ? 'clamp(28px, 4vw, 34px)' : 'clamp(32px, 5vw, 40px)';
+  const navGapClass = scrolled ? 'gap-2 sm:gap-3 md:gap-8' : 'gap-2.5 sm:gap-4 md:gap-8';
+  const navHeightClass = scrolled ? 'h-12 sm:h-14 md:h-20' : 'h-14 sm:h-16 md:h-20';
+
   return (
     <>
       {/* Scroll Progress */}
       <div className="scroll-progress" />
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glassmorphism shadow-lg' : 'bg-transparent'
-        } ${visible ? 'translate-y-0' : 'translate-y-[-100%]'}`}
+        className={`fixed inset-x-4 md:inset-x-0 z-50 transition-all duration-300 rounded-full md:rounded-none border md:border-0 ${
+          scrolled
+            ? 'top-4 md:top-0 glassmorphism shadow-lg border-[rgba(255,255,255,0.12)] md:border-transparent scale-95 md:scale-100'
+            : 'top-0 bg-transparent border-transparent scale-100'
+        }`}
+        style={{ backdropFilter: scrolled ? 'blur(24px)' : 'none' }}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex items-center justify-between ${navHeightClass}`}>
 
             {/* Left — Name */}
             <motion.a
               href="#"
-              className="font-grotesk font-bold tracking-tight shrink-0"
+              className="font-grotesk font-bold tracking-tight shrink-0 transition-all duration-300"
               style={{
                 color: 'var(--text)',
-                fontSize: 'clamp(1rem, 3vw, 1.5rem)',
+                fontSize: logoSize,
               }}
               whileHover={{ scale: 1.03 }}
               onClick={(e) => {
@@ -87,7 +84,7 @@ export default function Navbar() {
             </motion.a>
 
             {/* Center — Nav Links (always visible, compressed on mobile) */}
-            <div className="flex items-center gap-2.5 sm:gap-4 md:gap-8 overflow-x-auto no-scrollbar pt-1.5 pb-1">
+            <div className={`flex items-center ${navGapClass} overflow-x-auto no-scrollbar pt-1.5 pb-1`}>
               {navLinks.map((link) => {
                 const sectionId = link.href.substring(1);
                 const isActive = activeSection === sectionId;
@@ -122,12 +119,12 @@ export default function Navbar() {
             {/* Right — Theme Toggle */}
             <motion.button
               onClick={toggle}
-              className="shrink-0 flex items-center justify-center rounded-full border transition-colors duration-200"
+              className="shrink-0 flex items-center justify-center rounded-full border transition-all duration-200"
               style={{
                 borderColor: 'var(--border)',
                 color: 'var(--text)',
-                width: 'clamp(32px, 5vw, 40px)',
-                height: 'clamp(32px, 5vw, 40px)',
+                width: buttonSize,
+                height: buttonSize,
               }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

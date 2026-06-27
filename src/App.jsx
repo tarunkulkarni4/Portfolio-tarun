@@ -62,24 +62,6 @@ function Footer() {
 }
 
 export default function App() {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        // More robust scroll calculation that accounts for layout and sticky navbar
-        const elementPosition = projectsSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - 60;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 5000); // Scroll after 5 seconds
-
-    return () => clearTimeout(timer); // Cleanup on unmount
-  }, []);
-
   return (
     <ThemeProvider>
       <ScrollProgress />
